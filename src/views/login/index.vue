@@ -17,7 +17,7 @@
             </el-checkbox>
           </el-form-item>
           <el-form-item>
-            <el-button  style="width: 350px" type="primary" @click="login">登录</el-button>
+            <el-button  style="width: 350px" type="primary" @click="login" >登录</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -61,18 +61,15 @@ export default {
             trigger: 'blur'
           }
         ],
-        isAgree: [
-          {
-            //required只能检查null undefined
-            validator:(rule, value, callback) => {
-              //rule校验规则
-              //value校验的值
-              //callback 函数 -promise resolve reject
-              //callback() callback(new error(错误信息))
-              value ? callback() :callback(new Error('必须勾选用户协议'))
-            }
-      
-          }]
+        isAgree: [{
+          validator: (rule, value, callback) => {
+            // rule校验规则
+            // value 校验的值
+            // callback 函数 - promise resolve reject
+            // callback() callback(new Error(错误信息))
+            value ? callback() : callback(new Error('您必须勾选用户的使用协议'))
+          }
+        }]
       }
     }
   },
@@ -80,8 +77,9 @@ export default {
     login(){
       this.$refs.form.validate(async(isOK) => {
         if (isOK){
-          alert('校验通过')
-          await this.$store.dispatch('user/login',this.loginForm)
+          // await this.$store.dispatch('user/login',this.loginForm)
+          this.$store.dispatch('user/login', this.loginForm)
+
           //vuex中的action返回的promise
           //跳转主页
           this.$router.push('/')
