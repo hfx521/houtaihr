@@ -4,33 +4,94 @@
     <div class="form">
       <h1>登录</h1>
       <el-card shadow="never" class="login-card">
-        <!--登录表单-->
-        <!-- el-form > el-form-item >el-input -->
-        <el-form>
-          <el-form-item>
-            <el-input placeholder="请输入你的手机号码"/>
+        <el-form ref="form" :model="loginForm" :rules="loginRules">
+          <el-form-item :prop="'mobile'">
+            <el-input v-model="loginForm.mobile" placeholder="请输入你的手机号码"/>
           </el-form-item>
-          <el-form-item>
-            <el-input placeholder="请输入你的密码"/>
+          <el-form-item :prop="'password'">
+            <el-input v-model="loginForm.password" show-password placeholder="请输入你的密码"/>
           </el-form-item>
-          <el-form-item>
-            <el-checkbox>
+          <el-form-item :prop="'isAgree'">
+            <el-checkbox v-model="loginForm.isAgree">
               用户平台使用协议
             </el-checkbox>
           </el-form-item>
           <el-form-item>
-           <el-button style="width: 350px" type="primary">登录</el-button>
+            <el-button  style="width: 350px" type="primary" @click="login">登录</el-button>
           </el-form-item>
         </el-form>
       </el-card>
     </div>
   </div>
 </template>
+
 <script>
 export default {
-  name : "Login"
+  name: "Login",
+  data() {
+    return {
+      loginForm: {
+        mobile: '',
+        password: '',
+        isAgree: false
+      },
+      loginRules: {
+        mobile: [
+          {
+            required: true,
+            message: '请输入手机号',
+            trigger: 'blur'
+          },
+          {
+            pattern: /^1[3-9]\d{9}$/,
+            message: '手机号格式不正确',
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: '请输入密码',
+            trigger: 'blur'
+          },
+          {
+            min: 6,
+            max: 16,
+            message: '密码长度应该为6-16位之间',
+            trigger: 'blur'
+          }
+        ],
+        isAgree: [
+          {
+            //required只能检查null undefined
+            validator:(rule, value, callback) => {
+              //rule校验规则
+              //value校验的值
+              //callback 函数 -promise resolve reject
+              //callback() callback(new error(错误信息))
+              value ? callback() :callback(new Error('必须勾选用户协议'))
+            }
+      
+          }]
+      }
+    }
+  },
+  methods:{
+    login(){
+      this.$refs.form.validate(async(isOK) => {
+        if (isOK){
+          alert('校验通过')
+          await this.$store.dispatch('user/login',this.loginForm)
+          //vuex中的action返回的promise
+          //跳转主页
+          this.$router.push('/')
+        }
+      })
+    }
+  }
 }
 </script>
+
 <style lang="scss">
 .login-container {
   display: flex;
