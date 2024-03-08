@@ -73,6 +73,9 @@ export default {
       }
     }
   },
+  // created:{
+  //   alert(process.env.NODE_ENV)
+  // },
   methods:{
     
     login(){
