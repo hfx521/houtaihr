@@ -28,7 +28,15 @@ service.interceptors.response.use((response) => {
     Message({type:'error',message})
     return Promise.reject(new Error(message))
   }
-}, (error) => {
+}, async(error) => {
+  if(error.response.status === 401) {
+    //说明token超时了
+    Message({type:'waring',message:'token超时了'})
+    await store.dispatch('user/logout') //调用action退出登录
+    //主动跳转到登录页
+    router.push('/login') //跳转到登录页
+    return Promise.reject(error)
+  }
   //error.message
   Message({type:'error',message:error.message})
   return Promise.reject(error)

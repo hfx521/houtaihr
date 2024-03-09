@@ -133,6 +133,10 @@ const mutations = {
       const result = await getUserInfo()
       context.commit('setUserInfo', result)
       return result
+    },
+    logout(context) {
+      context.commit('removeToken')
+      context.commit('setUserInfo', {})
     }
   }
 
