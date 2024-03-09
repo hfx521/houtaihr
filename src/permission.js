@@ -73,7 +73,7 @@ import store from "./store"
 //前置守卫
 
 const whiteList = ["/login" , "/404"]
-router.beforeEach((to,from,next) => {
+router.beforeEach(async(to,from,next) => {
   nProgress.start() //开启进度条
   if(store.getters.token) {
     //存在token
@@ -82,6 +82,10 @@ router.beforeEach((to,from,next) => {
       next('/') //中转页面 主页  next里面有地址的情况下 没有执行后置守卫
       nProgress.done()
     } else {
+      //判断是否获取过资料
+      if(!store.getters.UserId) {
+        await store.dispatch('user/getUserInfo')
+      }
       next() //放过
     }
   }else {

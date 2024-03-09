@@ -10,7 +10,8 @@ service.interceptors.request.use((config) => {
   //注入token
   //store.getters.token => 请求头里面
   if (store.getters.token){
-    config.headers.Authorization = 'Bearer ${store.getters.token}'
+    config.headers.Authorization = `Bearer ${store.getters.token}`
+    // console.log('Bearer' +(store.getters.token))
   }
   return config
 }, (error) => {
