@@ -37,7 +37,7 @@ export default {
             type:Boolean,
             default:false
         },
-        currentNoteId: {
+        currentNodeId: {
             type:Number,
             default:null
         }
@@ -111,7 +111,7 @@ export default {
           this.$emit('update:showDialog',false)  
         },
         async getManagerList() {
-            this.managerList = await getManagerList()  
+            this.managerList = await getManagerList(this.currentNoteId)  
         }
     }
 }

@@ -10,6 +10,7 @@
           <el-col>{{ data.name }}</el-col>
           <el-col :span="4">
             <span  style="margin-left: 10px" class="tree-manager">{{ data.managerName }}</span>
+            <!-- $event实参 表示类型 -->
             <el-dropdown @command="operateDept($event,data.id)">
                 <!-- 显示区域内容 -->
     <span class="el-dropdown-link">
@@ -29,7 +30,7 @@
     </div>
     <!-- 放置弹出层组件 -->
     <!-- 表示会接受子组件的事件update:showDialog,值 => 属性 -->
-    <add-dept :current-node-id="currentNoteId" :showDialog.sync="showDialog" />
+    <add-dept :current-node-id="currentNodeId" :showDialog.sync="showDialog" />
   </div>
 </template>
 
@@ -48,7 +49,7 @@ export default {
       defaultProps: {
         label: 'name', //要显示的字段的名字
         children: 'children' //读取子节点的字段名
-      }
+      }//currentNoteId
     }
   },
   created() {
