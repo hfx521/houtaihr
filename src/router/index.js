@@ -74,7 +74,6 @@ export const constantRoutes = [
   roleRouter,
   salaryRouter,
   socialRouter,
-  roleRouter,
 
   
   // 404 page must be placed at the end !!!
