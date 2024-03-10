@@ -2,6 +2,8 @@
  * Created by PanJiaChen on 16/11/18.
  */
 
+import Item from "@/layout/components/Sidebar/Item.vue"
+
 /**
  * Parse the time to string
  * @param {(Object|string|number)} time
@@ -114,4 +116,21 @@ export function param2Obj(url) {
     }
   })
   return obj
+}
+
+
+// 列表型数据转化为树型
+
+export function transListToTreeData(list,rootValue) {
+  const arr = []
+list.forEach(item => {
+  if(item.pid === rootValue) {
+    //找到了匹配的节点
+    arr.push(item)
+    //当前节点的id和当前字节点的pid是相等的
+    const children = transListToTreeData(list,item.id)
+    item.children = children //将子节点赋值给当前节点
+  }
+})
+  return arr
 }
