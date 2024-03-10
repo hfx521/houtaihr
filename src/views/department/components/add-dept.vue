@@ -9,7 +9,10 @@
                 <el-input v-model="formData.code" placeholder="2-10个字符" style="width: 80%;" size="mini"/>
             </el-form-item>
             <el-form-item v-model="formData.managerId" prop="managerId" label="部门负责人">
-                <el-select v-model="formData.managerId" placeholder="请选择部门负责人" style="width: 80%;" size="mini"/>
+                <el-select v-model="formData.managerId" placeholder="请选择部门负责人" style="width: 80%;" size="mini">
+                    <!-- 下拉选项  循环 负责人数据 lable表示显示的字段 value表示存储的字段-->
+                    <el-option v-for="item in managerList" :key="item.id" :label="item.username" :value="item.id"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item v-model="formData.introduce" prop="introduce" label="部门介绍">
                 <el-input v-model="formData.introduce" placeholder="1-100个字符" type="textarea" size="mini" style="width: 80%;" />
@@ -27,16 +30,21 @@
     </el-dialog>
 </template>
 <script>
-import {getDepartment} from '@/api/department'
+import {getDepartment,getManagerList} from '@/api/department'
 export default {
     props: {
         showDialog: {
             type:Boolean,
             default:false
+        },
+        currentNoteId: {
+            type:Number,
+            default:null
         }
     },
     data() {
        return {
+        managerList:[],//存储负责人的列表
         formData:{
             code:'', //部门介绍
             managerId:'', //部门负责人名称
@@ -94,10 +102,16 @@ export default {
         }
        }
     },
+    created () {
+        this.getManagerList()
+    },
     methods: {
         //修改父组件的值 子传父
         close() {
           this.$emit('update:showDialog',false)  
+        },
+        async getManagerList() {
+            this.managerList = await getManagerList()  
         }
     }
 }

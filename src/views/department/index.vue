@@ -10,7 +10,7 @@
           <el-col>{{ data.name }}</el-col>
           <el-col :span="4">
             <span  style="margin-left: 10px" class="tree-manager">{{ data.managerName }}</span>
-            <el-dropdown @command="operateDept">
+            <el-dropdown @command="operateDept($event,data.id)">
                 <!-- 显示区域内容 -->
     <span class="el-dropdown-link">
       操作<i class="el-icon-arrow-down el-icon--right"></i>
@@ -29,7 +29,7 @@
     </div>
     <!-- 放置弹出层组件 -->
     <!-- 表示会接受子组件的事件update:showDialog,值 => 属性 -->
-    <add-dept :showDialog.sync="showDialog" />
+    <add-dept :current-node-id="currentNoteId" :showDialog.sync="showDialog" />
   </div>
 </template>
 
@@ -42,6 +42,7 @@ export default {
   components:{AddDept},
   data() {
     return {
+      currentNodeId:null,//存储当前点击的id
       showDialog:false, //控制弹层的显示和隐藏
       depts: [], //数据属性
       defaultProps: {
@@ -60,10 +61,11 @@ export default {
       this.depts = transListToTreeData(result,0)
     },
     //操作部门方法
-    operateDept(type) {
+    operateDept(type,id) {
       if(type === 'add') {
         //添加子部门
         this.showDialog = true //显示弹层
+        this.currentNodeId = id
       }
     }
   }
