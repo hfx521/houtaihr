@@ -35,19 +35,21 @@
     <!-- 放置弹出层 -->
     <el-dialog width="500px" title="新增角色" :visible.sync="showDialog">
       <!-- 表单内容 -->
-      <el-form>
-        <el-form-item label-width="68px" label="角色名称">
-          <el-input style="width:300px;" size="mini"></el-input>
+      <el-form ref="roleForm" :model="roleForm" :rules="rules" label-width="120px">
+        <el-form-item prop="name"  label="角色名称">
+          <el-input v-model="roleForm.name" style="width:300px;" size="mini"></el-input>
         </el-form-item>
         <el-form-item label="启用">
-          <el-switch size="mini"></el-switch>
+          <!-- 如果不需要校验 -->
+          <el-switch :active-value="1"
+    :inactive-value="0" v-model="roleForm.state" size="mini"></el-switch>
         </el-form-item>
-        <el-form-item label="角色描述">
-          <el-input type="textarea" :rows="3" style="width: 300px;"size="mini"></el-input>
+        <el-form-item prop="description" label="角色描述">
+          <el-input v-mode="roleForm.description" type="textarea" :rows="3" style="width: 300px;"size="mini"></el-input>
         </el-form-item>
         <el-form-item>
           <el-row type="flex" justify="center">
-            <el-col :span="8">
+            <el-col :span="12">
               <el-button type="primary" size="mini">确定</el-button>
               <el-button size="mini">取消</el-button>
             </el-col>
@@ -70,6 +72,15 @@ export default {
         page:1, //第几页
        pagesize:5, //每页多少条
        total:0
+    },
+    roleForm: {
+      name:'',
+      description:'',
+      state:0 //1启用 0关闭
+    },
+    rules: {
+      name:[{required:true,message:'角色名称不能为空',trigger:'blur'}],
+      description:[{required:true,message:'角色描述不能为空',trigger:'blur'}],
     }
   }
 },
