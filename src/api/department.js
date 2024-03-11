@@ -31,3 +31,20 @@ export function getDepartmentDetail(id) {
         url:`/company/department/${id}`
     })
 }
+
+// 更新部门的方法
+export function updateDepartment(data) {
+    return request({
+        method:'put',
+        url:`/company/department/${data.id}`,
+        data
+    })
+}
+
+// 删除部门的方法
+export function delDepartment(id) {
+    return request({
+        method:'delete',
+        url:`/company/department/${id}`,
+    })
+}
