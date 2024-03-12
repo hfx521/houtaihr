@@ -12,21 +12,22 @@
         <el-table-column prop="name" align="center" width="200" label="角色">
           <template v-slot="{row}">
             <!-- 条件的判断 -->
-            <el-input v-if="row.isEdit" size="mini"></el-input>
+            <el-input v-if="row.isEdit" size="mini" v-model="row.editRow.name"></el-input>
             <span v-else> {{ row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="state" align="center" width="200" label="启用" >
           <!-- 自定义列结构 -->
           <template v-slot="{row}">
-            <el-switch v-if="row.isEdit"></el-switch>
+            <!-- 开 1 关 0 -->
+            <el-switch v-if="row.isEdit" v-model="row.editRow.state" :active-value="1" :inactive-value="0"></el-switch>
             <span v-else>{{ row.state === 1 ? "已启用" : row.state === 0 ? "未启用" : "无" }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="description" align="center" label="描述">
           <template v-slot="{row}">
-           <el-input v-if="row.isEdit" type="textarea"></el-input>
-           <span v-else>{row.description}</span>
+           <el-input v-if="row.isEdit" type="textarea" v-model="row.editRow.description" size="mini"></el-input>
+           <span v-else>{{row.description}}</span>
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作">
@@ -120,7 +121,12 @@ export default {
           // item.isEdit = false //添加一个属性 初始值为fasle
            //数据响应式的问题 不具备响应式的特点
         //this.$set(目标对象,响应名称,初始值) 针对目标对象 添加的属性 添加响应式
-        this.$set(item,'isEdit',false)
+        this.$set(item,'isEdit',false),
+        this.$set(item,'editRow', {
+          name:item.name,
+          state:item.state,
+          description:item.description,
+        })
         })
       },
       //切换分页时请求新的数据
@@ -144,6 +150,10 @@ export default {
       },
       btnEditRow(row) {
         row.isEdit = true //添加一个属性 
+        // 更新缓存数据
+        row.editRow.name = row.name
+        row.editRow.state = row.state
+        row.editRow.description = row.description
       }
     }
 }
