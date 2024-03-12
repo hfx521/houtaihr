@@ -3,7 +3,7 @@ import store from '@/store'
 import {Message} from 'element-ui'
 const service = axios.create({
   baseURL:process.env.VUE_APP_BASE_API,//基础地址
-  timeout:10000 //十秒钟
+  timeout:100000 //十秒钟
 }) //创建一个新的axios实例
 //成功1 失败2
 service.interceptors.request.use((config) => {
@@ -21,7 +21,11 @@ service.interceptors.request.use((config) => {
 //响应拦截器
 service.interceptors.response.use((response) => {
   //axios默认包括data
-  const {data,message,success} = response.data
+  //判断数据类型 blob
+  if(response.data instanceof Blob)
+  return response.data //返回了blob
+  
+  const {data,message,success} = response.data //默认json
   if (success) {
     return data
   }else {
@@ -29,6 +33,7 @@ service.interceptors.response.use((response) => {
     return Promise.reject(new Error(message))
   }
 }, async(error) => {
+  console.log("Error:",error)
   if(error.response.status === 401) {
     //说明token超时了
     Message({type:'waring',message:'token超时了'})

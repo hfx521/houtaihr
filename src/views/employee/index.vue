@@ -26,8 +26,8 @@
       <div class="right">
         <el-row class="opeate-tools" type="flex" justify="end">
           <el-button size="mini" type="primary">添加员工</el-button>
-          <el-button size="mini">excel导入</el-button>
-          <el-button size="mini">excel导出</el-button>
+          <el-button size="mini" @click="showExcelDialog = true">excel导入</el-button>
+          <el-button size="mini" @click="exportEmployee">excel导出</el-button>
         </el-row>
         <!-- 表格组件 -->
         <el-table :data="list">
@@ -71,15 +71,21 @@
         </el-row>
       </div>
     </div>
+    <import-excel :show-excel-dialog.sync="showExcelDialog"></import-excel>
   </div>
 </template>
 
 <script>
 import { getDepartment } from '@/api/department'
-import { getEmployeeList } from '@/api/employee'
+import { getEmployeeList,exportEmployee } from '@/api/employee'
 import { transListToTreeData } from '@/utils'
+import FileSaver from 'file-saver'
+import ImportExcel from './components/import-excel.vue'
 export default {
   name: 'Employee',
+  components: {
+    ImportExcel
+  },
   data() {
     return {
       depts: [], // 组织数据
@@ -95,7 +101,8 @@ export default {
         keyword: ''
       },
       total: 0, // 记录员工的总数
-      list: [] // 存储员工列表数据
+      list: [], // 存储员工列表数据
+      showExcelDialog:false //控制excel的弹层显示
     }
   },
   created() {
@@ -142,6 +149,16 @@ export default {
         this.queryParams.page = 1
         this.getEmployeeList()
       }, 300)
+    },
+    /** *
+     * 导出员工的excel
+     *
+     * **/
+     async  exportEmployee() {
+      const result = await exportEmployee() // 导出所有的员工接口
+      // console.log(result) // 使用一个npm包 直接将blob文件下载到本地 file-saver
+      // FileSaver.saveAs(blob对象,文件名称)
+      FileSaver.saveAs(result, '员工信息表.xlsx') // 下载文件
     }
   }
 }
