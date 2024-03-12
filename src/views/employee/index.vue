@@ -39,6 +39,7 @@
           </el-table-column>
           <el-table-column prop="username" label="姓名" />
           <el-table-column prop="mobile" label="手机号" sortable />
+          <!-- sortable代表可以排序 带有上下的两个小箭头 -->
           <el-table-column prop="workNumber" label="工号" sortable />
           <el-table-column prop="formOfEmployment" label="聘用形式">
             <template v-slot="{ row }">
@@ -122,7 +123,7 @@ export default {
       this.queryParams.page = 1 // 设置第一页
       this.getEmployeeList()
     },
-    // 获取员工列表的方法
+    // 获取员工列表的方法 获取数据
     async getEmployeeList() {
       const { rows, total } = await getEmployeeList(this.queryParams)
       this.list = rows
