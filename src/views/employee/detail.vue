@@ -101,11 +101,11 @@
   </template>
   
   <script>
-//   import SelectTree from './components/select-tree.vue'
+  import SelectTree from './components/select-tree.vue'
 //   import ImageUpload from './components/image-upload.vue'
   import { addEmployee } from '@/api/employee'
   export default {
-    // components: { SelectTree, ImageUpload },
+    components: { SelectTree },
     data() {
       return {
         userInfo: {
