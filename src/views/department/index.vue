@@ -9,7 +9,7 @@
           <el-row style="width:100%;height:40px" type="flex" justify="space-between" align="middle">
             <el-col>{{ data.name }}</el-col>
             <el-col :span="4">
-              <span class="tree-manager">{{ data.managerName }}</span>
+              <span class="tree-manager" >{{ data.managerName }}</span>
               <!-- $event 实参 表示类型 -->
               <el-dropdown @command="operateDept($event, data.id)">
                 <!-- 显示区域内容 -->
@@ -94,11 +94,11 @@ export default {
 <style scoped>
 .app-container {
   padding: 30px 140px;
-  font-size: 14px;
+  font-size: 16px;
 }
-.tree-manager {
-  width: 50px;
-  display: inline-block;
-  margin: 10px;
+span.tree-manager {
+  position: relative;
+  left: -40px; 
+  
 }
 </style>
