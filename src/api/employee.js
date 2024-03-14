@@ -72,3 +72,36 @@ export function getEmployeeDetail (id) {
     url:`/sys/user/${id}`
   })
 }
+
+/**
+ * 更新员工
+ * ***/
+
+export function updateEmployee(data) {
+  return request({
+    url: `/sys/user/${data.id}`,
+    method: 'put',
+    data
+  })
+}
+/**
+ * 获取可用的角色
+ * **/
+
+export function getEnableRoleList() {
+  return request({
+    url: '/sys/role/list/enabled'
+  })
+}
+/**
+ * 分配员工角色
+ * ***/
+
+export function assignRole(data) {
+  return request({
+    url: '/sys/user/assignRoles',
+    method: 'put',
+    data
+  })
+}
+

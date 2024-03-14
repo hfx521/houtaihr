@@ -21,6 +21,7 @@
           :expand-on-click-node="false"
           highlight-current
           @current-change="selectNode"
+          
         />
       </div>
       <div class="right">
@@ -59,7 +60,7 @@
           
             <el-button slot="reference" style="margin-left: 10px;" size="mini" type="text">删除</el-button>
           </el-popconfirm>
-
+<!-- <el-cascader-->
             </template>
           </el-table-column>
 
