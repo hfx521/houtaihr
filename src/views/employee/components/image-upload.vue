@@ -42,11 +42,11 @@ export default {
     uploadImage(params) {
       console.log(params.file)
       const cos = new COS({
-        SecretId: 'AKIDDSdjgnjT1NZ3a7VjkfVIwOdfv9IH2b8e',
-        SecretKey: 'WEwe9WJ9vLeq1BHNLLKF5Up10ndUDk24'
+        SecretId: 'AKID1ulV8e3PccNyMYXHrKc0LadZO6oOrnt4',
+        SecretKey: '85uhHetw0sW1BKNK7jLp7C5lHasywmQs'
       }) // 完成cos对象的初始化
       cos.putObject({
-        Bucket: 'heimachengxuyuan-1302806742', // 存储桶名称
+        Bucket: 'renshiguanli-1325010619', // 存储桶名称
         Region: 'ap-nanjing', // 地域名称
         Key: params.file.name, // 文件名称
         StorageClass: 'STANDARD', // 固定值
