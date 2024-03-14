@@ -54,7 +54,7 @@ export function delEmployee(id) {
 }
 
 /**
- * 新增员工
+ * 新增员工功能
  * ***/
 
 export function addEmployee(data) {

@@ -40,7 +40,6 @@
                   <!-- 放置及联部门组件 会单独封装-->
                   <!-- inputW样式会给到selectTree中 template第一层的组件 -->
                   <select-tree v-model="userInfo.departmentId" class="inputW" />
-                  <!-- 双向绑定 -->
                 </el-form-item>
               </el-col>
             </el-row>
@@ -104,9 +103,9 @@
   <script>
   import SelectTree from './components/select-tree.vue'
 //   import ImageUpload from './components/image-upload.vue'
-  import { addEmployee } from '@/api/employee'
+  import { addEmployee, getEmployeeDetail, updateEmployee } from '@/api/employee'
   export default {
-    components: { SelectTree },
+    components: { SelectTree},
     data() {
       return {
         userInfo: {
@@ -186,6 +185,7 @@
         width: 380px
       }
     }
+  
     </style>
   
   
