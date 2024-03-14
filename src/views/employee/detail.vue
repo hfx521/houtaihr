@@ -120,7 +120,7 @@
         },
         rules: {
           username: [{ required: true, message: '请输入姓名', trigger: 'blur' }, {
-            min: 1, max: 4, message: '姓名为1-4位'
+            min: 1, max: 8, message: '姓名为1-8位'
           }],
           mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }, {
           //   pattern 正则表达式
