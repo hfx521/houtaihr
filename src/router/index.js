@@ -89,5 +89,6 @@ export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }
+//重置路由
 
 export default router
