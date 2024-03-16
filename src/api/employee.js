@@ -23,12 +23,14 @@ export function exportEmployee() {
   })
 }
 
+/**
+ * 下载员工导入模版
+ * **/
 
-// 下载员工导入模板
 export function getExportTemplate() {
   return request({
-    url:'/sys/user/import/template',
-    responseType:'blob' //二进制文件
+    url: '/sys/user/import/template',
+    responseType: 'blob' // 二进制文件流
   })
 }
 
@@ -43,18 +45,19 @@ export function uploadExcel(data) {
     data // form-data类型 因为要上传文件类型
   })
 }
-
-//删除员工
+/**
+ * 删除员工
+ * **/
 
 export function delEmployee(id) {
   return request({
-    method:'delete',
-    url:`/sys/user/${id}`
+    method: 'delete',
+    url: `/sys/user/${id}`
   })
 }
 
 /**
- * 新增员工功能
+ * 新增员工
  * ***/
 
 export function addEmployee(data) {
@@ -65,11 +68,13 @@ export function addEmployee(data) {
   })
 }
 
+/**
+ *  获取员工详情
+ * **/
 
-// 获取员工详情
-export function getEmployeeDetail (id) {
+export function getEmployeeDetail(id) {
   return request({
-    url:`/sys/user/${id}`
+    url: `/sys/user/${id}`
   })
 }
 
@@ -84,6 +89,7 @@ export function updateEmployee(data) {
     data
   })
 }
+
 /**
  * 获取可用的角色
  * **/
@@ -93,6 +99,7 @@ export function getEnableRoleList() {
     url: '/sys/role/list/enabled'
   })
 }
+
 /**
  * 分配员工角色
  * ***/
@@ -104,4 +111,3 @@ export function assignRole(data) {
     data
   })
 }
-
