@@ -2,6 +2,7 @@ import layout from '@/layout'
 export default {
   // 路由信息
   path: '/department',
+  name:'department',
   component: layout, // 一级路由
   name: 'department',
   children: [{

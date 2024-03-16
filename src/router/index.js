@@ -6,14 +6,13 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 import departmentRouter from './modules/department'
-import approvaltRouter from './modules/approval'
+import approvalRouter from './modules/approval'
 import attendanceRouter from './modules/attendance'
 import employeeRouter from './modules/employee'
 import permissionRouter from './modules/permission'
 import roleRouter from './modules/role'
 import salaryRouter from './modules/salary'
 import socialRouter from './modules/social'
-
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -38,9 +37,7 @@ import socialRouter from './modules/social'
  * constantRoutes
  * a base page that does not have permission requirements
  * all roles can be accessed
- * 
  */
-//三级路由构建
 export const constantRoutes = [
   {
     path: '/login',
@@ -58,32 +55,31 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    //下面是子组件
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
-  },
+  }
+
+  // 404 page must be placed at the end !!!
+
+]
+// 动态路由
+export const asyncRoutes = [
   departmentRouter,
-  approvaltRouter,
-  attendanceRouter,
+  roleRouter,
   employeeRouter,
   permissionRouter,
-  roleRouter,
+  attendanceRouter,
+  approvalRouter,
   salaryRouter,
-  socialRouter,
-
-  
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
-]
-
+  socialRouter]
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes: constantRoutes // 默认引入静态路由
 })
 
 const router = createRouter()
